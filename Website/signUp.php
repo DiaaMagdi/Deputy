@@ -3,6 +3,8 @@
 include_once('Sign-Up.html');
 include_once('control.php');
 
+session_start();
+
 if(isset($_POST["signup_submit"]))
 {
     $name = $_POST['signup_name'];
@@ -11,15 +13,17 @@ if(isset($_POST["signup_submit"]))
 
     //validate
     $control = new control();
-    $validation = $control->validate(array("email"=>"$email", "password"=>"$pass"));
+    $validation = $control->validate(array("email"=>"$email", "pass"=>"$pass"));
     if($validation[1] != false)
     {
         //inserting to DB
         $dbModel = new model();
-        $dbModel = new model();
-        $op = $dbModel->ins("userinfo", "Name, Email, Password", "'$name', '$email', '$pass'");
-        if($op == true)
-            header("location:Hello.php");
+        $op = $dbModel->ins("user", "Name, Email, Pass", "'$name', '$email', '$pass'");
+        if($op == true){
+            $_SESSION["email"] = $email;
+            $_SESSION["name"] = $name;
+            header("location:start.php");
+        }
     }
     else
     {

@@ -3,7 +3,7 @@ class config{
     private $server = "localhost";
     private $username = "root";
     private $password = "";
-    private $db = "onmyway";
+    private $db = "enteg";
     public $link;
     public function __construct(){
         $this->link = mysqli_connect($this->server,$this->username,$this->password);
